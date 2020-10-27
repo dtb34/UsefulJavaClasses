@@ -1,0 +1,43 @@
+import java.util.*;
+
+class RecursionExamples {
+
+  public static String recursion(String str){
+    if (str.equals("")){
+      return "";
+    }
+    
+    return recursion(str.substring(1)) + str.charAt(0);
+  }
+
+  public static int factorial(int num){
+    if (num == 2){
+      return 2;
+    }
+
+    return num * factorial(num -1);
+  }
+
+
+  public static int fibonacci(int num){
+    int total = 0, num1 = 0, num2 = 1;
+    for(int i = 2; i <= num; i++){
+      total = num1 + num2;
+      num1 = num2;
+      num2 = total;
+    }
+    return total;
+  }
+
+  public static int fibonacciRec(int num){
+    int total = 0, num1 = 0, num2 = 1;
+    for(int i = 2; i <= num; i++){
+      total = num1 + num2;
+      num1 = num2;
+      num2 = total;
+    }
+    return total;
+  }
+
+
+}
