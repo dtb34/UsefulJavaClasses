@@ -1,0 +1,128 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+
+class Sorts {
+
+  public static int[] bubbleSort(int[] arr){
+    int length = arr.length;
+
+    for(int i = 0; i < length; i++){
+      for(int j = 0; j < length - 1; j++){
+        if(arr[j] > arr[j+1]){
+          int temp = arr[j];
+          arr[j] = arr[j+1];
+          arr[j+1] = temp;
+        }
+      }
+    }
+
+    return arr;
+  }
+
+  public static int[] selectionSort(int[] array){
+    
+    int length = array.length;
+
+    for(int i = 0; i < length; i++){
+      int placeholder = i;
+      for(int j = i; j < length; j++){
+        if(array[j] < array[placeholder]){
+          placeholder = j;
+        }
+      }
+      int temp = array[i];
+      array[i] = array[placeholder];
+      array[placeholder] = temp;
+    }
+    return array;
+  }
+
+
+  public static ArrayList<Integer> insertionSort(ArrayList<Integer> array){
+    for (int i = 0; i < array.size(); i++){
+      if(array.get(i) <= array.get(0)){
+        array.add(0, array.remove(i));
+      } else {
+        if(array.get(i) < array.get(i - 1)){
+          for(int j = 1; j < i; j++){
+            if(array.get(i) < array.get(j)){
+              array.add(j, array.remove(i));
+              break;
+            }
+          }
+        }
+      }
+      
+    }
+    return array;
+  }
+
+//split array in half. use recursion to keep splitting array in half and moving code side to side based on which value is the smallest.
+  public static List<Integer> mergeSort(List<Integer> array){
+    if (array.size() == 1){
+      return array;
+    }
+
+    List<Integer> leftList = array.subList(0, array.size() / 2);
+    List<Integer> rightList = array.subList(array.size() / 2, array.size());
+
+    return merge(mergeSort(leftList), mergeSort(rightList));
+
+  }
+
+  public static List<Integer> merge(List<Integer> left, List<Integer> right){
+    ArrayList<Integer> result = new ArrayList<Integer>();
+    int leftIndex = 0;
+    int rightIndex = 0;
+
+    while (leftIndex < left.size() && rightIndex < right.size()){
+      if (left.get(leftIndex) <= right.get(rightIndex)){
+        result.add(left.get(leftIndex));
+        leftIndex++;
+      } else {
+        result.add(right.get(rightIndex));
+        rightIndex++;
+      }
+    }
+
+    result.addAll(left.subList(leftIndex, left.size())); //Merging all "leftovers" elements as is because we know they are sorted
+    result.addAll(right.subList(rightIndex, right.size()));
+
+    return result;
+  }
+
+  static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int pIndex = partition(arr, low, high);
+
+            quickSort(arr, low, pIndex - 1);
+            quickSort(arr, pIndex + 1, high);
+        }
+    }
+
+    static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = (low - 1);
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+
+                // swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
+    }
+
+
+}
